@@ -192,14 +192,12 @@ func (g *game) join(active *game) bool {
 		active.lock.Unlock()
 	}()
 
-	// for _, ok := pool.Load(g.id); ok; _, ok = pool.Load(g.id) {
 	for msg := range g.ch {
 		active.ch <- msg
 		if active.isDone() {
 			return true
 		}
 	}
-	// }
 
 	return true
 }
